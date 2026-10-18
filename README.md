@@ -24,3 +24,8 @@ Use `irm` to download the script and execute it with `iex`:
 Request a specific version by including it in the URL:
 
 ```powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/0.13.1/install.ps1 | iex```
+### Updating UV
+
+When uv is installed via the standalone installer, it can update itself on-demand:
+
+``` uv self update```
