@@ -1,5 +1,5 @@
 # Credence Backend
-## Installation
+## Setup
 ### UV tool installation (for Python)
 Credence backend requires uv for virtual environment.
 #### uv standalone installer (for MacOS/Linux)
