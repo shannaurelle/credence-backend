@@ -14,7 +14,7 @@ Request a specific version by including it in the URL:
 
 ```curl -LsSf https://astral.sh/uv/0.13.1/install.sh | sh ```
 
-#### uv standlaone installer (for Windows)
+#### uv standalone installer (for Windows)
 
 Use `irm` to download the script and execute it with `iex`:
 
