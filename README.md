@@ -1,7 +1,7 @@
 # Credence Backend
 ## Preparing the Setup
 ### Download Git
-First, download Git here:
+First, download Git here: https://git-scm.com/install/
 ### Clone the Repository
 Second, clone this repository to your laptop then install the following tools below.
 ### Cloning the Repository via HTTPS 
