@@ -24,8 +24,8 @@ SECRET_KEY = 'django-insecure-ysrqlxxiw*342#wdy+t(r2+&x+e-1#f-3xaxvssdvssm7d_1+%
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = ['10.12.60.192', 'localhost', '10.11.37.38', '127.0.0.1']
+# UPTac: , '10.11.37.38' - Julius, '10.12.60.192' - Shann
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.5.51.100', '10.5.51.123']
 
 # Application definition
 
@@ -54,8 +54,10 @@ MIDDLEWARE = [
 
 # Allows the Quasar dev server running on another device to make API calls
 CORS_ALLOWED_ORIGINS = [
-    "http://10.12.60.192:9000",  # If running Quasar in dev mode on your PC
-    "http://10.11.37.38:9000",  # If running Quasar in dev mode on your PC
+    "http://10.5.51.123:9000", # HIS Capsule Shann
+    "http://10.5.51.100:9000", # HIS Capsule Julius
+    # "http://10.12.60.192:9000",  # If running Quasar in dev mode on your PC, UPTac Shann
+    # "http://10.11.37.38:9000",  # If running Quasar in dev mode on your PC UPTac Julius
     "http://localhost:9000",
 ]
 
@@ -64,7 +66,14 @@ CORS_ALLOW_CREDENTIALS = True
 # If Quasar is running as a mobile app (Capacitor/Cordova), it might use a custom origin
 CORS_ALLOW_ALL_ORIGINS = True  # Use ONLY for temporary local development testing
 
-CSP_CONNECT_SRC = ("'self'", "http://10.12.60.192:8000") # Your Django Backend IP
+# CSP_CONNECT_SRC = ("'self'", "http://10.12.60.192:8000", "http://10.11.37.38:8000") # Your Django Backend IP - UPTac
+CSP_CONNECT_SRC = ("'self'", "http://10.5.51.100:8000", "http://10.5.51.123:8000") # Your Django Backend IP - HIS Capsule Hotel
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
 
 ROOT_URLCONF = 'credencev2.urls'
 
