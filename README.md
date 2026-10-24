@@ -1,5 +1,6 @@
 # Credence Backend
 ## Preparing the Setup
+First, clone this repository to your laptop then install the following tools below.
 ### UV tool installation (for Python)
 Credence backend requires uv for virtual environment.
 #### uv standalone installer (for MacOS/Linux)
@@ -30,4 +31,8 @@ When uv is installed via the standalone installer, it can update itself on-deman
 
 ``` uv self update```
 
+## Running the Setup
+
+1. Run the virtual environment: source ./venv/scripts/Activate
+2. Run the backend server: uv run python manage.py runserver 0.0.0.0:8000
 
