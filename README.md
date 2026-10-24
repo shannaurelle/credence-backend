@@ -1,6 +1,13 @@
 # Credence Backend
 ## Preparing the Setup
-First, clone this repository to your laptop then install the following tools below.
+### Download Git
+First, download Git here:
+### Clone the Repository
+Second, clone this repository to your laptop then install the following tools below.
+### Cloning the Repository via HTTPS 
+Run the following command: `git clone https://github.com/shannaurelle/credence-backend.git`
+### Cloning the Repository via SSH
+Run the following command: `git clone git@github.com:shannaurelle/credence-backend.git`
 ### UV tool installation (for Python)
 Credence backend requires uv for virtual environment.
 #### uv standalone installer (for MacOS/Linux)
@@ -33,6 +40,6 @@ When uv is installed via the standalone installer, it can update itself on-deman
 
 ## Running the Setup
 
-1. Run the virtual environment: source ./venv/scripts/Activate
-2. Run the backend server: uv run python manage.py runserver 0.0.0.0:8000
+1. Run the virtual environment: `source ./venv/scripts/Activate`
+2. Run the backend server: `uv run python manage.py runserver 0.0.0.0:8000`
 
