@@ -27,17 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['10.12.60.192', 'localhost', '10.11.37.38', '127.0.0.1']
 
-# Allows the Quasar dev server running on another device to make API calls
-CORS_ALLOWED_ORIGINS = [
-    "http://10.12.60.192:9000",  # If running Quasar in dev mode on your PC
-    "http://10.11.37.38:9000",  # If running Quasar in dev mode on your PC
-    "http://localhost:9000",
-]
-
-# If Quasar is running as a mobile app (Capacitor/Cordova), it might use a custom origin
-CORS_ALLOW_ALL_ORIGINS = True  # Use ONLY for temporary local development testing
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -62,6 +51,20 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Allows the Quasar dev server running on another device to make API calls
+CORS_ALLOWED_ORIGINS = [
+    "http://10.12.60.192:9000",  # If running Quasar in dev mode on your PC
+    "http://10.11.37.38:9000",  # If running Quasar in dev mode on your PC
+    "http://localhost:9000",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+# If Quasar is running as a mobile app (Capacitor/Cordova), it might use a custom origin
+CORS_ALLOW_ALL_ORIGINS = True  # Use ONLY for temporary local development testing
+
+CSP_CONNECT_SRC = ("'self'", "http://10.12.60.192:8000") # Your Django Backend IP
 
 ROOT_URLCONF = 'credencev2.urls'
 
