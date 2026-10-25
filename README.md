@@ -40,6 +40,7 @@ When uv is installed via the standalone installer, it can update itself on-deman
 
 ## Running the Setup
 
-1. Run the virtual environment: `source ./venv/scripts/Activate`
-2. Run the backend server: `uv run python manage.py runserver 0.0.0.0:8000`
+1. Make sure the current working directory is at `credence-backend`.
+2. Run the virtual environment: `source ./venv/scripts/Activate`
+3. Run the backend server: `uv run python manage.py runserver 0.0.0.0:8000`
 
