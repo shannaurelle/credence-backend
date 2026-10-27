@@ -1,4 +1,5 @@
 from rest_framework.viewsets import generics
+from rest_framework.viewsets import ModelViewSet
 from .models import User
 from .serializers import UserSerializer
 # Create your views here.
@@ -10,5 +11,9 @@ class UserListCreateAPIView(generics.ListCreateAPIView):
 
     # List and Create new Users
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer

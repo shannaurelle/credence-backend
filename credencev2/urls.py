@@ -17,11 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from credencev2_1.views import UserListCreateAPIView, UserDetailAPIView
+from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('api/users/', UserListCreateAPIView.as_view(), name='user-list-create'),
     path('api/users/<int:pk>/', UserDetailAPIView.as_view(), name='user-detail'),
     path('admin/', admin.site.urls),
+
+    # Login and token refresh
+    path("api/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
 
