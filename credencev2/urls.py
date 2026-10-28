@@ -20,6 +20,10 @@ from credencev2_1.views import UserListCreateAPIView, UserDetailAPIView
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+#10-27-2026 - 5:06 PM
+from django.urls import path
+from credencev2_1.views import current_user
+
 urlpatterns = [
     path('api/users/', UserListCreateAPIView.as_view(), name='user-list-create'),
     path('api/users/<int:pk>/', UserDetailAPIView.as_view(), name='user-detail'),
@@ -28,6 +32,9 @@ urlpatterns = [
     # Login and token refresh
     path("api/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+
+    #Get the id of the current user
+     path("users/me/", current_user, name="current-user")
 ]
 
 

@@ -3,6 +3,9 @@ from rest_framework.viewsets import ModelViewSet
 from .models import User
 from .serializers import UserSerializer
 # Create your views here.
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 # List and Create new Users
 class UserListCreateAPIView(generics.ListCreateAPIView):
@@ -17,3 +20,14 @@ class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def current_user(request):
+    user = request.user
+
+    return Response({
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+    })
