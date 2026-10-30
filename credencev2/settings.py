@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ysrqlxxiw*342#wdy+t(r2+&x+e-1#f-3xaxvssdvssm7d_1+%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # UPTac: , '10.11.37.38' - Julius, '10.12.60.192' - Shann
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.5.51.100', '10.5.51.123']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.5.51.100', '10.5.51.123', '192.168.246.95', '10.131.125.121']
 
 # Application definition
 
@@ -59,6 +59,7 @@ CORS_ALLOWED_ORIGINS = [
     # "http://10.12.60.192:9000",  # If running Quasar in dev mode on your PC, UPTac Shann
     # "http://10.11.37.38:9000",  # If running Quasar in dev mode on your PC UPTac Julius
     "http://localhost:9000",
+    "http://192.168.246.95:9000" 
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -67,7 +68,8 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True  # Use ONLY for temporary local development testing
 
 # CSP_CONNECT_SRC = ("'self'", "http://10.12.60.192:8000", "http://10.11.37.38:8000") # Your Django Backend IP - UPTac
-CSP_CONNECT_SRC = ("'self'", "http://10.5.51.100:8000", "http://10.5.51.123:8000") # Your Django Backend IP - HIS Capsule Hotel
+#CSP_CONNECT_SRC = ("'self'", "http://10.5.51.100:8000", "http://10.5.51.123:8000") # Your Django Backend IP - HIS Capsule Hotel
+CSP_CONNECT_SRC = ("'self'", "http://192.168.246.95:8000", "http://192.168.246.95:8000") # Your Django Backend IP - Juls Hotspot
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
