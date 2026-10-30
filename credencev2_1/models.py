@@ -26,6 +26,22 @@ class UserAccount(models.Model):
     def __str__(self):
         return f"UserAccount {self.user.id}"
 
+class Platform (models.Model):
+    platform_name = models.CharField(max_length=100)
+    platform_type = models.CharField(max_length=100)
+    def __str__(self):
+        return self.platform_name
+
+class JobInfo (models.Model):
+    user_account= models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    platform = models.ForeignKey(Platform, on_delete=models.CASCADE)
+    job_name  = models.CharField(max_length=100)
+    job_type  = models.CharField(max_length=100)
+    job_description = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.job_name
+
 class Address(models.Model):
     user_account = models.OneToOneField(
         UserAccount,
