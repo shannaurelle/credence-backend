@@ -4,6 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.db import models
 from django.conf import settings
 from datetime import date
+from datetime import datetime
 
 class User(models.Model):
     name = models.CharField(max_length=100)
@@ -189,8 +190,16 @@ class TransactionHistory(models.Model):
             ConnectedBankAccount,
             on_delete=models.CASCADE,
         )
+      user_account = models.ForeignKey(
+                  UserAccount,
+                  on_delete=models.CASCADE,
+              )
       transaction_name = models.CharField(max_length=100)
       transaction_date = models.DateField(default=date.today)
-      transaction_time = models.DateField()
+      transaction_time = models.DateField(auto_now_add=True)
+      transaction_amount = models.FloatField(default=0.0)
+
+      def __str__self(self):
+                    return f"Transaction Number {self.id} of User No. {self.user_account.id}"
 
     
