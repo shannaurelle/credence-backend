@@ -184,6 +184,13 @@ class InsuranceInfo(models.Model):
      def __str__self(self):
                           return f"User {self.user_account.id}'s Insurance No. {self.id}"
 
-
+class TransactionHistory(models.Model):
+      connected_bank_account = models.ForeignKey(
+            ConnectedBankAccount,
+            on_delete=models.CASCADE,
+        )
+      transaction_name = models.CharField(max_length=100)
+      transaction_date = models.DateField(default=date.today)
+      transaction_time = models.DateField()
 
     
