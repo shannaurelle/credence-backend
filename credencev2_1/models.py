@@ -119,10 +119,43 @@ class LoanInfo(models.Model):
             on_delete=models.CASCADE,
         )
     loan_type = models.CharField(maxlength=100)
+    loan_amount = models.FloatField(default=0.0)
+    no_of_terms = models.IntegerField()
+    interest_rate = models.FloatField(default=0.0)
+    payment_amount = models.FloatField(default=0.0)
     disbursement_date = models.DateField(default=date.today)
     start_date = models.DateField()
     end_date = models.DateField()
 
     def __str__self(self):
                 return f"User {self.user_account.id}'s Loan No. {self.id}"
+
+
+class InvestmentProvider (models.Model):
+     investment_provider_name = models.CharField(maxlength=100,unique=True)
+     def __str__self(self):
+        return self.investment_provider_name
+
+class InvestmentInfo(models.Model):
+     user_account = models.ForeignKey(
+                 UserAccount,
+                 on_delete=models.CASCADE,
+             )
+     
+     investment_provider = models.ForeignKey(
+        InvestmentProvider,
+         on_delete=models.CASCADE,
+             )
+     date_availed = models.DateField()
+     minimum_capital=models.FloatField(default=0.0)
+     return1 = models.FloatField (default=0.0)
+     mtd = models.FloatField (default=0.0)
+     ytd = models.FloatField(default=0.0)
+     nav = models.FloatField(default=0.0)
+     navps = models.FloatField(default=0.0)
+     rsi = models.FloatField(default=0.0)
+
+class InsuranceProvider(models.Model):
+     insurance_provider_name = models.CharField(maxlength=100, unique=True)
+     
     
