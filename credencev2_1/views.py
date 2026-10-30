@@ -32,5 +32,7 @@ def current_user(request):
         "email": user.email,
         "first_name": user.first_name,
         "last_name": user.last_name,
-                
+        "date_joined": user.date_joined,
+        "time_joined": user.date_joined.time(),                # HH:MM:SS object
+        "time_joined_formatted": user.date_joined.strftime("%I:%M %p"), # "10:03 AM"
     })
