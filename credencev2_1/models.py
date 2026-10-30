@@ -28,7 +28,7 @@ class UserAccount(models.Model):
         return f"UserAccount {self.user.id}"
 
 class Platform (models.Model):
-    platform_name = models.CharField(max_length=100)
+    platform_name = models.CharField(max_length=100,unique=True)
     platform_type = models.CharField(max_length=100)
     def __str__(self):
         return self.platform_name
@@ -97,7 +97,7 @@ class ConnectedBankAccount (models.Model):
         Bank,
         on_delete=models.CASCADE,
     )
-    account_type = models.CharField(maxlength=100)
+    account_type = models.CharField(max_length=100)
     bank_balance = models.FloatField(default =0.0)
 
     def __str__self(self):
@@ -118,7 +118,7 @@ class LoanInfo(models.Model):
             Lender,
             on_delete=models.CASCADE,
         )
-    loan_type = models.CharField(maxlength=100)
+    loan_type = models.CharField(max_length=100)
     loan_amount = models.FloatField(default=0.0)
     no_of_terms = models.IntegerField()
     interest_rate = models.FloatField(default=0.0)
@@ -132,7 +132,7 @@ class LoanInfo(models.Model):
 
 
 class InvestmentProvider (models.Model):
-     investment_provider_name = models.CharField(maxlength=100,unique=True)
+     investment_provider_name = models.CharField(max_length=100,unique=True)
      def __str__self(self):
         return self.investment_provider_name
 
@@ -155,7 +155,35 @@ class InvestmentInfo(models.Model):
      navps = models.FloatField(default=0.0)
      rsi = models.FloatField(default=0.0)
 
+     def __str__self(self):
+                     return f"User {self.user_account.id}'s Investment No. {self.id}"
+
 class InsuranceProvider(models.Model):
-     insurance_provider_name = models.CharField(maxlength=100, unique=True)
-     
+     insurance_provider_name = models.CharField(max_length=100, unique=True)
+     def __str__self(self):
+             return self.insurance_provider_name
+
+class InsuranceInfo(models.Model):
+     user_account = models.ForeignKey(
+                      UserAccount,
+                      on_delete=models.CASCADE,
+                  )
+          
+     insurance_provider = models.ForeignKey(
+             InsuranceProvider,
+              on_delete=models.CASCADE,
+                  )   
+     insurance_type = models.CharField(max_length=100)
+     date_availed =  models.DateField()
+     premium = models.FloatField(default=0.0)
+     deductible = models.FloatField(default=0.0)
+     co_payment = models.FloatField(default=0.0)
+     con_insurance= models.FloatField(default=0.0)
+     policy_limit = models.FloatField(default=0.0)
+
+     def __str__self(self):
+                          return f"User {self.user_account.id}'s Insurance No. {self.id}"
+
+
+
     
