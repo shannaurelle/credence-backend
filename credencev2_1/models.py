@@ -58,3 +58,15 @@ class Address(models.Model):
     def __str__(self):
         return f"{self.barangay}, {self.municipality_city}"
 
+class Vault (models.Model):
+    user_account = models.OneToOneField(
+            UserAccount,
+            on_delete=models.CASCADE,
+            related_name="vault"
+        )
+    vault_type = models.CharField(max_length=150)
+    vault_balance = models.FloatField(default=0.0)
+
+    
+    def __str__(self):
+            return f"Vault No. {self.id}"
