@@ -54,6 +54,11 @@ class UserHealthScoreUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserHealthScoreSerializer
     lookup_field='pk'
 
+class LoanInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = LoanInfo.objects.select_related('user_account', 'lender').all()
+    serializer_class = LoanInfoSerializer
+    lookup_field='pk'
+
     # List and Create new Users
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()

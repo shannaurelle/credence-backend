@@ -103,4 +103,24 @@ class UserHealthScoreSerializer(serializers.ModelSerializer):
             'user_account',
             'uh_score'
         ]
+
+class LoanInfoSerializer(serializers.ModelSerializer):
+    lender_name = serializers.CharField(source='lender.lender_name',read_only=True) 
+    class Meta:
+        model= LoanInfo
+        fields = [
+            "id",
+            "loan_type",
+            "loan_amount",
+            "no_of_terms",
+            "interest_rate",
+            "payment_amount",
+            "disbursement_date",
+            "start_date",
+            "end_date",
+            "user_account",
+            "lender",
+            "lender_name"
+
+        ]
     

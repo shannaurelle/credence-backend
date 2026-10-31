@@ -45,6 +45,9 @@ urlpatterns = [
 
     # User Health Score
     path('api/uhs/update/<int:pk>/',UserHealthScoreUpdateView.as_view(),name='user-uhs-update'),
+
+    # Loan Information
+    path('api/loaninfo/update/<int:pk>/',LoanInfoUpdateView.as_view(),name='user-loaninfo-update'),
     
     # Login and token refresh
     path("api/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

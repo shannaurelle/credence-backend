@@ -136,7 +136,7 @@ class LoanInfo(models.Model):
     end_date = models.DateField()
 
     def __str__(self):
-                return f"User {self.user_account.id}'s Loan No. {self.id}"
+                return f"{self.user_account}'s Loan No. {self.id}"
 
 class InvestmentProvider (models.Model):
      investment_provider_name = models.CharField(max_length=100,unique=True)
