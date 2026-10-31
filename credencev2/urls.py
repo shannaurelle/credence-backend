@@ -41,7 +41,7 @@ urlpatterns = [
     path('api/connected_bank/update/<int:pk>/',ConnectedBankUpdateView.as_view(),name='user-bank-update'),
 
     # Vault
-    path('api/vault/update/<int:pk>/',VaultUpdateView.as_view(),name='user-vault-update'),
+    path('api/vault/update/<int:user_account>/',VaultUpdateView.as_view(),name='user-vault-update'),
 
     # User Health Score
     path('api/uhs/update/<int:pk>/',UserHealthScoreUpdateView.as_view(),name='user-uhs-update'),

@@ -47,7 +47,7 @@ class ConnectedBankUpdateView(generics.RetrieveUpdateDestroyAPIView):
 class VaultUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Vault.objects.select_related('user_account').all()
     serializer_class = VaultSerializer
-    lookup_field='pk'
+    lookup_field='user_account'
 
 class UserHealthScoreUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserHealthScore.objects.select_related('user_account').all()
