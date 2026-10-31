@@ -207,6 +207,6 @@ class TransactionHistory(models.Model):
       transaction_amount = models.FloatField(default=0.0)
 
       def __str__(self):
-                    return f"Transaction Number {self.id} of User No. {self.user_account.id}"
+                    return f"Transaction Number {self.id} of {self.user_account}"
 
     
