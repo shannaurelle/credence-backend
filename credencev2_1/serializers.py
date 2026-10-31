@@ -159,3 +159,13 @@ class InsuranceInfoSerializer(serializers.ModelSerializer):
                 'con_insurance',
                 'policy_limit'
             ]
+
+class MonthlyRecurringPaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=MonthlyRecurringPayment
+        fields=[
+            'id',
+            'current_user',
+            'type',
+            'monthly_payment'
+        ]

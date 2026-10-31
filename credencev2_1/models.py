@@ -210,4 +210,17 @@ class TransactionHistory(models.Model):
       def __str__(self):
                     return f"Transaction Number {self.id} of {self.user_account}"
 
+
+class MonthlyRecurringPayment(models.Model):
+
+      user_account = models.ForeignKey(
+                        UserAccount,
+                        on_delete=models.CASCADE,
+                        null=True
+                    )
+      type = models.CharField(max_length=100, null=True)
+      monthly_payment = models.FloatField(default=0.0)
+      def __str__(self):
+            return f"Monthly Payment No. {self.id} of {self.user_account}"
+
     

@@ -84,6 +84,17 @@ class InsuranceInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = InsuranceInfoSerializer
     lookup_field='pk'
 
+#monthly recurring Payment
+class MonthlyRecurringPaymentListView(generics.ListAPIView):
+    queryset = MonthlyRecurringPayment.objects.select_related('user_account').all()
+    serializer_class = MonthlyRecurringPaymentSerializer
+    lookup_field='user_account'
+
+class MonthlyRecurringPaymentUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MonthlyRecurringPayment.objects.select_related('user_account').all()
+    serializer_class = MonthlyRecurringPaymentSerializer
+    lookup_field='pk'
+
     # List and Create new Users
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()

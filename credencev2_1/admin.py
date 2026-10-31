@@ -19,4 +19,5 @@ admin.site.register(InvestmentInfo)
 admin.site.register(InsuranceProvider)
 admin.site.register(InsuranceInfo)
 admin.site.register(TransactionHistory)
+admin.site.register(MonthlyRecurringPayment)
 

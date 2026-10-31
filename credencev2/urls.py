@@ -63,6 +63,12 @@ urlpatterns = [
 
     # Insurance Information Update
     path('api/insuranceinfo/update/<int:pk>/',InsuranceInfoUpdateView.as_view(),name='user-insuranceinfo-update'),
+
+    # Monthly recurring Payment Information List
+    path('api/monthlyrecurringpaymentinfo/list/<int:user_account>/',MonthlyRecurringPaymentListView.as_view(),name='user-mrp-list'),
+    
+    # Monthly recurring payment Information Update
+    path('api/monthlyrecurringpaymentinfo/update/<int:pk>/',MonthlyRecurringPaymentUpdateView.as_view(),name='user-mrp-update'),
     
     # Login and token refresh
     path("api/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
