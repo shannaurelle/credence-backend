@@ -154,6 +154,7 @@ class InvestmentInfo(models.Model):
          on_delete=models.CASCADE,
              )
      date_availed = models.DateField()
+     investment_type = models.CharField(max_length=100, null=True)
      minimum_capital=models.FloatField(default=0.0)
      return1 = models.FloatField (default=0.0)
      mtd = models.FloatField (default=0.0)

@@ -131,6 +131,7 @@ class InvestmentInfoSerializer(serializers.ModelSerializer):
             'id',
             'investment_provider',
             'investment_provider_name',
+            'investment_type',
             'user_account',
             'date_availed',
             'minimum_capital',
