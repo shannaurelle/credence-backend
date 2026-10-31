@@ -48,7 +48,8 @@ class Address(models.Model):
     user_account = models.OneToOneField(
         UserAccount,
         on_delete=models.CASCADE,
-        related_name="address"
+        related_name="address",
+        primary_key=True,
     )
 
     region = models.CharField(max_length=150)
@@ -64,24 +65,27 @@ class Vault (models.Model):
     user_account = models.OneToOneField(
             UserAccount,
             on_delete=models.CASCADE,
-            related_name="vault"
+            related_name="vault",
+            primary_key=True,
         )
     vault_type = models.CharField(max_length=150)
     vault_balance = models.FloatField(default=0.0)
 
     
     def __str__(self):
-            return f"Vault No. {self.id}"
+            return f"Vault of {self.user_account}"
 
 class UserHealthScore (models.Model):
     user_account = models.OneToOneField(
                 UserAccount,
                 on_delete=models.CASCADE,
-                related_name="user_health_score"
+                related_name="user_health_score",
+                primary_key=True
             )
+    uh_score = models.IntegerField(default=100)
 
     def __str__(self):
-        return f"User Health Score No. {self.id}"
+        return f"User Health Score No. {self.user_account}"
 
 class Bank (models.Model):
      bank_name = models.CharField(max_length=150)
@@ -133,7 +137,6 @@ class LoanInfo(models.Model):
 
     def __str__(self):
                 return f"User {self.user_account.id}'s Loan No. {self.id}"
-
 
 class InvestmentProvider (models.Model):
      investment_provider_name = models.CharField(max_length=100,unique=True)

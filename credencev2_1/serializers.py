@@ -86,4 +86,21 @@ class ConnectedBankAccountsSerializer(serializers.ModelSerializer):
             'account_type',
             'bank_balance'
         ]
+
+class VaultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vault
+        fields = [
+            'user_account',
+            'vault_type',
+            'vault_balance'
+        ]
+
+class UserHealthScoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserHealthScore
+        fields = [
+            'user_account',
+            'uh_score'
+        ]
     

@@ -37,7 +37,14 @@ urlpatterns = [
     # Edit Profile Details
     path('api/user_profile/update/<int:pk>/',ProfileUpdate.as_view(),name='user-profile-update'),
 
-    path('api/connected_bank/update/<int:pk>/',ConnectedBankView.as_view(),name='user-bank-update'),
+    # Connected Bank Accounts
+    path('api/connected_bank/update/<int:pk>/',ConnectedBankUpdateView.as_view(),name='user-bank-update'),
+
+    # Vault
+    path('api/vault/update/<int:pk>/',VaultUpdateView.as_view(),name='user-vault-update'),
+
+    # User Health Score
+    path('api/uhs/update/<int:pk>/',UserHealthScoreUpdateView.as_view(),name='user-uhs-update'),
     
     # Login and token refresh
     path("api/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

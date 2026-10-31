@@ -39,11 +39,20 @@ class ProfileUpdate(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProfileDetailUpdateSerializer
     lookup_field='pk'
 
-class ConnectedBankView(generics.RetrieveUpdateDestroyAPIView):
+class ConnectedBankUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset =ConnectedBankAccount.objects.select_related('user_account', 'bank').all()
     serializer_class = ConnectedBankAccountsSerializer
     lookup_field='pk'
 
+class VaultUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Vault.objects.select_related('user_account').all()
+    serializer_class = VaultSerializer
+    lookup_field='pk'
+
+class UserHealthScoreUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UserHealthScore.objects.select_related('user_account').all()
+    serializer_class = UserHealthScoreSerializer
+    lookup_field='pk'
 
     # List and Create new Users
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
