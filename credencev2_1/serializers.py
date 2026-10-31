@@ -165,7 +165,7 @@ class MonthlyRecurringPaymentSerializer(serializers.ModelSerializer):
         model=MonthlyRecurringPayment
         fields=[
             'id',
-            'current_user',
+            'user_account',
             'type',
             'monthly_payment'
         ]
