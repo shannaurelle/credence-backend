@@ -92,14 +92,17 @@ class Bank (models.Model):
 class ConnectedBankAccount (models.Model):
     user_account = models.ForeignKey(
         UserAccount,
+        related_name='user_2_connected_bank',
         on_delete=models.CASCADE,
     )
     bank = models.ForeignKey(
         Bank,
+        related_name='connected_bank_2_bank',
         on_delete=models.CASCADE,
     )
     account_type = models.CharField(max_length=100)
     bank_balance = models.FloatField(default =0.0)
+    
 
     def __str__(self):
             return f"User {self.user_account}'s Bank Account No. {self.id}"

@@ -36,6 +36,8 @@ urlpatterns = [
 
     # Edit Profile Details
     path('api/user_profile/update/<int:pk>/',ProfileUpdate.as_view(),name='user-profile-update'),
+
+    path('api/connected_bank/update/<int:pk>/',ConnectedBankView.as_view(),name='user-bank-update'),
     
     # Login and token refresh
     path("api/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

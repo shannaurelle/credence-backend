@@ -73,4 +73,17 @@ class ProfileDetailUpdateSerializer(serializers.ModelSerializer):
                 'barangay',
                 'street_address',
             ]
+
+class ConnectedBankAccountsSerializer(serializers.ModelSerializer):
+    bank_name = serializers.CharField(source='bank.bank_name',read_only=True) 
+    class Meta:
+        model = ConnectedBankAccount
+        fields = [
+            'id',
+            'user_account',
+            'bank',
+            'bank_name',
+            'account_type',
+            'bank_balance'
+        ]
     

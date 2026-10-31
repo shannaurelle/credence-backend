@@ -34,10 +34,16 @@ class ProfileView(generics.RetrieveAPIView):
     serializer_class = ProfileDetailsSerializer
     lookup_field='pk'
 
-class ProfileUpdate(generics.RetrieveAPIView):
+class ProfileUpdate(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserAccount.objects.select_related('user', 'address').all()
     serializer_class = ProfileDetailUpdateSerializer
     lookup_field='pk'
+
+class ConnectedBankView(generics.RetrieveUpdateDestroyAPIView):
+    queryset =ConnectedBankAccount.objects.select_related('user_account', 'bank').all()
+    serializer_class = ConnectedBankAccountsSerializer
+    lookup_field='pk'
+
 
     # List and Create new Users
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
