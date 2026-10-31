@@ -54,15 +54,30 @@ class UserHealthScoreUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserHealthScoreSerializer
     lookup_field='pk'
 
+class LoanInfoListView(generics.ListAPIView):
+    queryset = LoanInfo.objects.select_related('user_account', 'lender').all()
+    serializer_class = LoanInfoSerializer
+    lookup_field='user_account'
+
 class LoanInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = LoanInfo.objects.select_related('user_account', 'lender').all()
     serializer_class = LoanInfoSerializer
+    lookup_field='pk'
+
+class InvestmentInfoListView(generics.ListAPIView):
+    queryset = InvestmentInfo.objects.select_related('user_account', 'investment_provider').all()
+    serializer_class = InvestmentInfoSerializer
     lookup_field='user_account'
 
 class InvestmentInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = InvestmentInfo.objects.select_related('user_account', 'investment_provider').all()
     serializer_class = InvestmentInfoSerializer
     lookup_field='pk'
+
+class InsuranceInfoListView(generics.ListAPIView):
+    queryset = InsuranceInfo.objects.select_related('user_account', 'insurance_provider').all()
+    serializer_class = InsuranceInfoSerializer
+    lookup_field='user_account'
 
 class InsuranceInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = InsuranceInfo.objects.select_related('user_account', 'insurance_provider').all()

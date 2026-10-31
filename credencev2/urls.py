@@ -46,13 +46,22 @@ urlpatterns = [
     # User Health Score
     path('api/uhs/update/<int:pk>/',UserHealthScoreUpdateView.as_view(),name='user-uhs-update'),
 
-    # Loan Information
-    path('api/loaninfo/update/<int:user_account>/',LoanInfoUpdateView.as_view(),name='user-loaninfo-update'),
+    # Loan Information List
+    path('api/loaninfo/list/<int:user_account>/',LoanInfoListView.as_view(),name='user-loaninfo-list'),
 
-    # Investment Information
+    # Loan Information Update
+    path('api/loaninfo/update/<int:pk>/',LoanInfoUpdateView.as_view(),name='user-loaninfo-update'),
+
+    # Investment Information List
+    path('api/investmentinfo/list/<int:user_account>/',InvestmentInfoListView.as_view(),name='user-investmentinfo-list'),
+
+    # Investment Information Update
     path('api/investmentinfo/update/<int:pk>/',InvestmentInfoUpdateView.as_view(),name='user-investmentinfo-update'),
 
-    # Insurance Information
+    # Insurance Information List
+    path('api/insuranceinfo/list/<int:user_account>/',InsuranceInfoListView.as_view(),name='user-insuranceinfo-list'),
+
+    # Insurance Information Update
     path('api/insuranceinfo/update/<int:pk>/',InsuranceInfoUpdateView.as_view(),name='user-insuranceinfo-update'),
     
     # Login and token refresh
