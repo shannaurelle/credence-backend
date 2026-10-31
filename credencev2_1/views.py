@@ -59,6 +59,16 @@ class LoanInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LoanInfoSerializer
     lookup_field='pk'
 
+class InvestmentInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = InvestmentInfo.objects.select_related('user_account', 'investment_provider').all()
+    serializer_class = InvestmentInfoSerializer
+    lookup_field='pk'
+
+class InsuranceInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = InsuranceInfo.objects.select_related('user_account', 'insurance_provider').all()
+    serializer_class = InsuranceInfoSerializer
+    lookup_field='pk'
+
     # List and Create new Users
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()

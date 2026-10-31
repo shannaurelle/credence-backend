@@ -163,7 +163,7 @@ class InvestmentInfo(models.Model):
      rsi = models.FloatField(default=0.0)
 
      def __str__(self):
-                     return f"User {self.user_account.id}'s Investment No. {self.id}"
+                     return f"{self.user_account}'s Investment No. {self.id}"
 
 class InsuranceProvider(models.Model):
      insurance_provider_name = models.CharField(max_length=100, unique=True)
@@ -189,7 +189,7 @@ class InsuranceInfo(models.Model):
      policy_limit = models.FloatField(default=0.0)
 
      def __str__(self):
-                          return f"User {self.user_account.id}'s Insurance No. {self.id}"
+                          return f"{self.user_account}'s Insurance No. {self.id}"
 
 class TransactionHistory(models.Model):
       connected_bank_account = models.ForeignKey(

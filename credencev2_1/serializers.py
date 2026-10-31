@@ -110,6 +110,8 @@ class LoanInfoSerializer(serializers.ModelSerializer):
         model= LoanInfo
         fields = [
             "id",
+            "lender",
+            "lender_name",
             "loan_type",
             "loan_amount",
             "no_of_terms",
@@ -118,9 +120,41 @@ class LoanInfoSerializer(serializers.ModelSerializer):
             "disbursement_date",
             "start_date",
             "end_date",
-            "user_account",
-            "lender",
-            "lender_name"
+            "user_account"
 
         ]
-    
+class InvestmentInfoSerializer(serializers.ModelSerializer):
+    investment_provider_name = serializers.CharField(source="investment_provider.investment_provider_name", read_only=True)
+    class Meta:
+        model=InvestmentInfo
+        fields = [
+            'id',
+            'investment_provider',
+            'investment_provider_name',
+            'user_account',
+            'date_availed',
+            'minimum_capital',
+            'return1',
+            'mtd',
+            'ytd',
+            'nav',
+            'navps',
+            'rsi'
+        ]
+
+class InsuranceInfoSerializer(serializers.ModelSerializer):
+    insurance_provider_name = serializers.CharField(source="insurance_provider.insurance_provider_name", read_only=True)
+    class Meta:
+            model=InsuranceInfo
+            fields = [
+                'id',
+                'insurance_provider',
+                'insurance_provider_name',
+                'insurance_type',
+                'date_availed',
+                'premium',
+                'deductible',
+                'co_payment',
+                'con_insurance',
+                'policy_limit'
+            ]

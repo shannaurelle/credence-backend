@@ -48,6 +48,12 @@ urlpatterns = [
 
     # Loan Information
     path('api/loaninfo/update/<int:pk>/',LoanInfoUpdateView.as_view(),name='user-loaninfo-update'),
+
+    # Investment Information
+    path('api/investmentinfo/update/<int:pk>/',InvestmentInfoUpdateView.as_view(),name='user-investmentinfo-update'),
+
+    # Insurance Information
+    path('api/insuranceinfo/update/<int:pk>/',InsuranceInfoUpdateView.as_view(),name='user-insuranceinfo-update'),
     
     # Login and token refresh
     path("api/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
