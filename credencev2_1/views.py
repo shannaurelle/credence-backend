@@ -57,7 +57,7 @@ class UserHealthScoreUpdateView(generics.RetrieveUpdateDestroyAPIView):
 class LoanInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = LoanInfo.objects.select_related('user_account', 'lender').all()
     serializer_class = LoanInfoSerializer
-    lookup_field='pk'
+    lookup_field='user_account'
 
 class InvestmentInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = InvestmentInfo.objects.select_related('user_account', 'investment_provider').all()

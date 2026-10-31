@@ -47,7 +47,7 @@ urlpatterns = [
     path('api/uhs/update/<int:pk>/',UserHealthScoreUpdateView.as_view(),name='user-uhs-update'),
 
     # Loan Information
-    path('api/loaninfo/update/<int:pk>/',LoanInfoUpdateView.as_view(),name='user-loaninfo-update'),
+    path('api/loaninfo/update/<int:user_account>/',LoanInfoUpdateView.as_view(),name='user-loaninfo-update'),
 
     # Investment Information
     path('api/investmentinfo/update/<int:pk>/',InvestmentInfoUpdateView.as_view(),name='user-investmentinfo-update'),
