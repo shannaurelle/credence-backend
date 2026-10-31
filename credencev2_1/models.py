@@ -86,7 +86,7 @@ class UserHealthScore (models.Model):
 class Bank (models.Model):
      bank_name = models.CharField(max_length=150)
 
-     def __str__self(self):
+     def __str__(self):
         return self.bank_name
 
 class ConnectedBankAccount (models.Model):
@@ -101,12 +101,12 @@ class ConnectedBankAccount (models.Model):
     account_type = models.CharField(max_length=100)
     bank_balance = models.FloatField(default =0.0)
 
-    def __str__self(self):
-            return f"User {self.user_account.id}'s Bank Account No. {self.id}"
+    def __str__(self):
+            return f"User {self.user_account}'s Bank Account No. {self.id}"
 
 class Lender(models.Model):
      lender_name = models.CharField(max_length=100,unique=True)
-     def __str__self(self):
+     def __str__(self):
         return self.lender_name
 
 class LoanInfo(models.Model):
@@ -128,13 +128,13 @@ class LoanInfo(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
 
-    def __str__self(self):
+    def __str__(self):
                 return f"User {self.user_account.id}'s Loan No. {self.id}"
 
 
 class InvestmentProvider (models.Model):
      investment_provider_name = models.CharField(max_length=100,unique=True)
-     def __str__self(self):
+     def __str__(self):
         return self.investment_provider_name
 
 class InvestmentInfo(models.Model):
@@ -156,12 +156,12 @@ class InvestmentInfo(models.Model):
      navps = models.FloatField(default=0.0)
      rsi = models.FloatField(default=0.0)
 
-     def __str__self(self):
+     def __str__(self):
                      return f"User {self.user_account.id}'s Investment No. {self.id}"
 
 class InsuranceProvider(models.Model):
      insurance_provider_name = models.CharField(max_length=100, unique=True)
-     def __str__self(self):
+     def __str__(self):
              return self.insurance_provider_name
 
 class InsuranceInfo(models.Model):
@@ -182,7 +182,7 @@ class InsuranceInfo(models.Model):
      con_insurance= models.FloatField(default=0.0)
      policy_limit = models.FloatField(default=0.0)
 
-     def __str__self(self):
+     def __str__(self):
                           return f"User {self.user_account.id}'s Insurance No. {self.id}"
 
 class TransactionHistory(models.Model):
@@ -193,13 +193,14 @@ class TransactionHistory(models.Model):
       user_account = models.ForeignKey(
                   UserAccount,
                   on_delete=models.CASCADE,
+                  null=True
               )
       transaction_name = models.CharField(max_length=100)
       transaction_date = models.DateField(default=date.today)
       transaction_time = models.DateField(auto_now_add=True)
       transaction_amount = models.FloatField(default=0.0)
 
-      def __str__self(self):
+      def __str__(self):
                     return f"Transaction Number {self.id} of User No. {self.user_account.id}"
 
     

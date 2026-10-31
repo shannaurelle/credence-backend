@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from credencev2_1.views import UserListCreateAPIView, UserDetailAPIView
+from credencev2_1.views import *
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -29,6 +29,14 @@ urlpatterns = [
     path('api/users/<int:pk>/', UserDetailAPIView.as_view(), name='user-detail'),
     path('admin/', admin.site.urls),
 
+    path('api/user_accounts/', UserAccountListCreateAPIView.as_view(), name='user-account-list-create'),
+    path('api/user_accounts/<int:pk>/', UserAccountListDetailAPIView.as_view(), name='user-account-list-detail'),
+
+    path('api/user_profile/<int:pk>/',ProfileView.as_view(),name='user-profile'),
+
+    # Edit Profile Details
+    path('api/user_profile/update/<int:pk>/',ProfileUpdate.as_view(),name='user-profile-update'),
+    
     # Login and token refresh
     path("api/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),

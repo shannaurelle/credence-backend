@@ -1,7 +1,7 @@
 from rest_framework.viewsets import generics
 from rest_framework.viewsets import ModelViewSet
-from .models import User
-from .serializers import UserSerializer
+from .models import *
+from .serializers import *
 # Create your views here.
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -12,6 +12,33 @@ class UserListCreateAPIView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+class UserAccountListCreateAPIView(generics.ListCreateAPIView):
+    queryset = UserAccount.objects.select_related('user').all()
+    serializer_class = UserAccountSerializer
+
+class UserAccountListDetailAPIView(generics.RetrieveAPIView):
+    queryset = UserAccount.objects.select_related('user').all()
+    serializer_class = UserAccountSerializer
+    lookup_field='pk'
+
+class UserAccountListDetailEdit(generics.UpdateAPIView):
+    queryset = UserAccount.objects.select_related('user').all()
+    serializer_class = UserAccountSerializer
+    lookup_field='pk'
+
+class ProfileView(generics.RetrieveAPIView):
+    queryset = UserAccount.objects.select_related(
+        'user',
+        'address'
+    ).all()
+    serializer_class = ProfileDetailsSerializer
+    lookup_field='pk'
+
+class ProfileUpdate(generics.RetrieveAPIView):
+    queryset = UserAccount.objects.select_related('user', 'address').all()
+    serializer_class = ProfileDetailUpdateSerializer
+    lookup_field='pk'
+
     # List and Create new Users
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
@@ -20,6 +47,7 @@ class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
