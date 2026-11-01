@@ -98,7 +98,7 @@ class ConnectedBankAccountsIDs (models.Model):
             primary_key=True
       )
       def __str__(self):
-        return f"{self.user_account}'s Connected Bank Account No. {self.id}"
+        return f"{self.user_account}, {self.connected_bank}"
 
 class Platform (models.Model):
     platform_name = models.CharField(max_length=100,unique=True)
