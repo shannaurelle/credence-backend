@@ -90,7 +90,7 @@ class ConnectedBankAccountsIDs (models.Model):
             related_name='user_id_2_connected_bank',
             on_delete=models.CASCADE,
         )
-      
+        
       connected_bank = models.OneToOneField(
             ConnectedBankAccount,
             related_name='user_2_connected_bank2',
@@ -115,7 +115,7 @@ class JobInfo (models.Model):
     job_description = models.CharField(max_length=300)
 
     def __str__(self):
-        return self.job_name
+        return f"{self.user_account} Job No. {self.id}"
 
 class Lender(models.Model):
      lender_name = models.CharField(max_length=100,unique=True)
