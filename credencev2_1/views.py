@@ -114,6 +114,27 @@ class PHMinimumWagesPerRegionView(generics.ListAPIView):
     serializer_class = PHMinimumWagesPerRegionSerializer
     lookup_field='pk'
 
+#Income
+class IncomeListView(generics.ListAPIView):
+    queryset = Income.objects.select_related('user_account').all()
+    serializer_class = IncomeSerializer
+    lookup_field='user_account'
+class IncomeUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Income.objects.select_related('user_account').all()
+    serializer_class = IncomeSerializer
+    lookup_field='user_account'
+
+#Expenses
+class ExpenseListView(generics.ListAPIView):
+    queryset = Expense.objects.select_related('user_account').all()
+    serializer_class = ExpenseSerializer
+    lookup_field='user_account'
+class ExpenseUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Expense.objects.select_related('user_account').all()
+    serializer_class = ExpenseSerializer
+    lookup_field='user_account'
+
+
     # List and Create new Users
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()

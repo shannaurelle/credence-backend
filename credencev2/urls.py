@@ -81,7 +81,14 @@ urlpatterns = [
     
     # Monthly recurring payment Information Update
     path('api/monthlyrecurringpaymentinfo/update/<int:pk>/',MonthlyRecurringPaymentUpdateView.as_view(),name='user-mrp-update'),
-    
+
+    #Income
+    path('api/income/list/<int:user_account>/',IncomeListView.as_view(),name='user-income-list'),
+    path('api/income/update/<int:user_account>/',IncomeUpdateView.as_view(),name='user-income-update'),
+    #Expense
+    path('api/expense/list/<int:user_account>/',ExpenseListView.as_view(),name='user-expense-list'),
+    path('api/expense/update/<int:user_account>/',ExpenseUpdateView.as_view(),name='user-expense-update'),
+
     # Login and token refresh
     path("api/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),

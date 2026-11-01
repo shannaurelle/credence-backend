@@ -28,21 +28,7 @@ class UserAccount(models.Model):
     def __str__(self):
         return f"UserAccount {self.user.id}"
 
-class Platform (models.Model):
-    platform_name = models.CharField(max_length=100,unique=True)
-    platform_type = models.CharField(max_length=100)
-    def __str__(self):
-        return self.platform_name
 
-class JobInfo (models.Model):
-    user_account= models.ForeignKey(UserAccount, on_delete=models.CASCADE)
-    platform = models.ForeignKey(Platform, on_delete=models.CASCADE)
-    job_name  = models.CharField(max_length=100)
-    job_type  = models.CharField(max_length=100)
-    job_description = models.CharField(max_length=300)
-
-    def __str__(self):
-        return self.job_name
 
 class PHMinimumWagesPerRegion(models.Model):
       region_name = models.CharField(max_length=100)
@@ -72,31 +58,7 @@ class Address(models.Model):
     def __str__(self):
         return f"{self.barangay}, {self.municipality_city}"
 
-class Vault (models.Model):
-    user_account = models.OneToOneField(
-            UserAccount,
-            on_delete=models.CASCADE,
-            related_name="vault",
-            primary_key=True,
-        )
-    vault_type = models.CharField(max_length=150)
-    vault_balance = models.FloatField(default=0.0)
 
-    
-    def __str__(self):
-            return f"Vault of {self.user_account}"
-
-class UserHealthScore (models.Model):
-    user_account = models.OneToOneField(
-                UserAccount,
-                on_delete=models.CASCADE,
-                related_name="user_health_score",
-                primary_key=True
-            )
-    uh_score = models.IntegerField(default=100)
-
-    def __str__(self):
-        return f"User Health Score No. {self.user_account}"
 
 class Bank (models.Model):
      bank_name = models.CharField(max_length=150)
@@ -137,6 +99,23 @@ class ConnectedBankAccountsIDs (models.Model):
       )
       def __str__(self):
         return f"{self.user_account}'s Connected Bank Account No. {self.id}"
+
+class Platform (models.Model):
+    platform_name = models.CharField(max_length=100,unique=True)
+    platform_type = models.CharField(max_length=100)
+    def __str__(self):
+        return self.platform_name
+
+class JobInfo (models.Model):
+    user_account= models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    connected_bank_account = models.ForeignKey(ConnectedBankAccount, on_delete=models.CASCADE,null=True)
+    platform = models.ForeignKey(Platform, on_delete=models.CASCADE)
+    job_name  = models.CharField(max_length=100)
+    job_type  = models.CharField(max_length=100)
+    job_description = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.job_name
 
 class Lender(models.Model):
      lender_name = models.CharField(max_length=100,unique=True)
@@ -250,5 +229,71 @@ class MonthlyRecurringPayment(models.Model):
       def __str__(self):
             return f"Monthly Payment No. {self.id} of {self.user_account}"
 
+class Income(models.Model):
+    user_account = models.ForeignKey(
+                              UserAccount,
+                              on_delete=models.CASCADE,
+                              null=True
+                          )
+    job_info = models.ForeignKey(
+                              JobInfo,
+                              on_delete=models.CASCADE,
+                              null=True
+                          )
+    income_2_bankacct = models.ForeignKey(
+                              ConnectedBankAccount,
+                              on_delete=models.CASCADE,
+                              null=True
+                          )
+    
+    income_amount = models.FloatField(default=0.0)
+    i_timestamp = models.DateTimeField(auto_now_add=True, null=True)
+    i_date = models.DateField(auto_now_add=True, null=True)
+    def __str__(self):
+        return f"Income of {self.user_account}, {self.i_timestamp}, {self.i_date}" 
 
+class Expense(models.Model):
+    user_account = models.ForeignKey(
+                              UserAccount,
+                              on_delete=models.CASCADE,
+                              null=True
+                          )
+    expense_2_bankacct = models.ForeignKey(
+                              ConnectedBankAccount,
+                              on_delete=models.CASCADE,
+                              null=True
+                          )
+    
+    expense_amount = models.FloatField(default=0.0)
+    e_timestamp = models.DateTimeField(auto_now_add=True, null=True)
+    e_date = models.DateField(auto_now_add=True, null=True)
+    def __str__(self):
+        return f"Expense of {self.user_account}, {self.e_timestamp}, {self.e_date}" 
+
+
+class Vault (models.Model):
+    user_account = models.OneToOneField(
+            UserAccount,
+            on_delete=models.CASCADE,
+            related_name="vault",
+            primary_key=True,
+        )
+    vault_type = models.CharField(max_length=150)
+    vault_balance = models.FloatField(default=0.0)
+
+    
+    def __str__(self):
+            return f"Vault of {self.user_account}"
+
+class UserHealthScore (models.Model):
+    user_account = models.OneToOneField(
+                UserAccount,
+                on_delete=models.CASCADE,
+                related_name="user_health_score",
+                primary_key=True
+            )
+    uh_score = models.IntegerField(default=100)
+
+    def __str__(self):
+        return f"User Health Score No. {self.user_account}"
     

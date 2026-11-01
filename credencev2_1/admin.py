@@ -22,4 +22,5 @@ admin.site.register(TransactionHistory)
 admin.site.register(MonthlyRecurringPayment)
 admin.site.register(PHMinimumWagesPerRegion)
 admin.site.register(ConnectedBankAccountsIDs)
-
+admin.site.register(Income)
+admin.site.register(Expense)
