@@ -46,6 +46,12 @@ urlpatterns = [
     # Connected Bank Accounts
     path('api/connected_bank/update/<int:pk>/',ConnectedBankUpdateView.as_view(),name='user-bank-update'),
 
+    
+    # Connected Bank Accounts
+    path('api/connected_bank2/update/<int:user_account>/',ConnectedBankIDsUpdateView.as_view(),name='user-bank-update2'),
+    # Connected Bank Accounts List
+    path('api/connected_bank2/list/<int:user_account>/',ConnectedBankIDsListView.as_view(),name='user-bank-list2'),
+
     # Vault
     path('api/vault/update/<int:user_account>/',VaultUpdateView.as_view(),name='user-vault-update'),
 

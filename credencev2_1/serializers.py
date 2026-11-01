@@ -87,6 +87,11 @@ class ConnectedBankAccountsSerializer(serializers.ModelSerializer):
             'bank_balance'
         ]
 
+class ConnectedBankAccountIDsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConnectedBankAccountsIDs
+        fields = '__all__'
+
 class VaultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vault

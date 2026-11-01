@@ -44,6 +44,16 @@ class ConnectedBankUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ConnectedBankAccountsSerializer
     lookup_field='pk'
 
+class ConnectedBankIDsListView(generics.ListAPIView):
+    queryset =ConnectedBankAccountsIDs.objects.select_related('user_account','connected_bank').all()
+    serializer_class = ConnectedBankAccountIDsSerializer
+    lookup_field='user_account'
+
+class ConnectedBankIDsUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset =ConnectedBankAccountsIDs.objects.select_related('user_account','connected_bank').all()
+    serializer_class = ConnectedBankAccountIDsSerializer
+    lookup_field='user_account'
+
 class VaultUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Vault.objects.select_related('user_account').all()
     serializer_class = VaultSerializer

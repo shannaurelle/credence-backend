@@ -120,7 +120,23 @@ class ConnectedBankAccount (models.Model):
     
 
     def __str__(self):
-            return f"User {self.user_account}'s Bank Account No. {self.id}"
+            return f"{self.user_account}'s Bank Account No. {self.id}"
+
+class ConnectedBankAccountsIDs (models.Model):
+      user_account = models.ForeignKey(
+            UserAccount,
+            related_name='user_id_2_connected_bank',
+            on_delete=models.CASCADE,
+        )
+      
+      connected_bank = models.OneToOneField(
+            ConnectedBankAccount,
+            related_name='user_2_connected_bank2',
+            on_delete=models.CASCADE,
+            primary_key=True
+      )
+      def __str__(self):
+        return f"{self.user_account}'s Connected Bank Account No. {self.id}"
 
 class Lender(models.Model):
      lender_name = models.CharField(max_length=100,unique=True)
