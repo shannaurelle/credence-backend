@@ -247,10 +247,9 @@ class Income(models.Model):
                           )
     
     income_amount = models.FloatField(default=0.0)
-    i_timestamp = models.DateTimeField(auto_now_add=True, null=True)
-    i_date = models.DateField(auto_now_add=True, null=True)
+    i_timestamp = models.DateTimeField(null=True)
     def __str__(self):
-        return f"Income of {self.user_account}, {self.i_timestamp}, {self.i_date}" 
+        return f"Income of {self.user_account}, {self.i_timestamp}" 
 
 class Expense(models.Model):
     user_account = models.ForeignKey(
@@ -265,10 +264,9 @@ class Expense(models.Model):
                           )
     
     expense_amount = models.FloatField(default=0.0)
-    e_timestamp = models.DateTimeField(auto_now_add=True, null=True)
-    e_date = models.DateField(auto_now_add=True, null=True)
+    e_timestamp = models.DateTimeField( null=True)
     def __str__(self):
-        return f"Expense of {self.user_account}, {self.e_timestamp}, {self.e_date}" 
+        return f"Expense of {self.user_account}, {self.e_timestamp}" 
 
 
 class Vault (models.Model):
