@@ -95,6 +95,15 @@ class MonthlyRecurringPaymentUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MonthlyRecurringPaymentSerializer
     lookup_field='pk'
 
+class PHMinimumWagesPerRegionListView(generics.ListAPIView):
+    queryset = PHMinimumWagesPerRegion.objects.select_related().all()
+    serializer_class = PHMinimumWagesPerRegionSerializer
+
+class PHMinimumWagesPerRegionView(generics.ListAPIView):
+    queryset = PHMinimumWagesPerRegion.objects.select_related().all()
+    serializer_class = PHMinimumWagesPerRegionSerializer
+    lookup_field='pk'
+
     # List and Create new Users
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()

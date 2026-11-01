@@ -169,3 +169,8 @@ class MonthlyRecurringPaymentSerializer(serializers.ModelSerializer):
             'type',
             'monthly_payment'
         ]
+
+class PHMinimumWagesPerRegionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=PHMinimumWagesPerRegion
+        fields='__all__'

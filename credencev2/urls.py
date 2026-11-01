@@ -37,6 +37,12 @@ urlpatterns = [
     # Edit Profile Details
     path('api/user_profile/update/<int:pk>/',ProfileUpdate.as_view(),name='user-profile-update'),
 
+    # Minimum Wage of a Region
+    path('api/minimumwageperregion/list/<int:pk>/',PHMinimumWagesPerRegionView.as_view(),name='minimum-wage-info'),
+
+    # Minimum Wage List
+    path('api/minimumwageperregion/list/',PHMinimumWagesPerRegionListView.as_view(),name='minimum-wage-list'),
+
     # Connected Bank Accounts
     path('api/connected_bank/update/<int:pk>/',ConnectedBankUpdateView.as_view(),name='user-bank-update'),
 

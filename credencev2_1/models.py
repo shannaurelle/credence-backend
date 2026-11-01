@@ -44,6 +44,12 @@ class JobInfo (models.Model):
     def __str__(self):
         return self.job_name
 
+class PHMinimumWagesPerRegion(models.Model):
+      region_name = models.CharField(max_length=100)
+      minimum_wage = models.FloatField(default=0.0)
+      def __str__(self):
+            return self.region_name
+
 class Address(models.Model):
     user_account = models.OneToOneField(
         UserAccount,
@@ -51,7 +57,12 @@ class Address(models.Model):
         related_name="address",
         primary_key=True,
     )
-
+    region_id = models.ForeignKey(
+        PHMinimumWagesPerRegion,
+        on_delete=models.CASCADE,
+        related_name="regional_minimum_wage",
+        null=True
+    )
     region = models.CharField(max_length=150)
     province = models.CharField(max_length=150)
     municipality_city = models.CharField(max_length=150)
@@ -222,5 +233,6 @@ class MonthlyRecurringPayment(models.Model):
       monthly_payment = models.FloatField(default=0.0)
       def __str__(self):
             return f"Monthly Payment No. {self.id} of {self.user_account}"
+
 
     
