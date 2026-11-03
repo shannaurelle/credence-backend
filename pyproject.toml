@@ -11,6 +11,8 @@ dependencies = [
     "django>=6.1.2",
     "django-cors-headers>=4.9.0",
     "django-csp>=4.0",
+    "django-phonenumber-field>=9.0.0",
+    "django-phonenumbers>=1.0.1",
     "djangorestframework>=3.18.3",
     "djangorestframework-simplejwt>=5.5.1",
 ]
