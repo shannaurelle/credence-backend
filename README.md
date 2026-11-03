@@ -32,6 +32,7 @@ Use `irm` to download the script and execute it with `iex`:
 Request a specific version by including it in the URL:
 
 ```powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/0.13.1/install.ps1 | iex```
+
 ### Updating UV
 
 When uv is installed via the standalone installer, it can update itself on-demand:
@@ -43,4 +44,10 @@ When uv is installed via the standalone installer, it can update itself on-deman
 1. Make sure the current working directory is at `credence-backend`.
 2. Run the virtual environment: `source ./venv/scripts/Activate`
 3. Run the backend server: `uv run python manage.py runserver 0.0.0.0:8000`
+
+### Adding UV as a dependency
+
+When adding a new dependency to the repository named `a-new-dependency` run this command:
+
+```uv add a-new-dependency```
 
