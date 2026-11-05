@@ -82,7 +82,7 @@ urlpatterns = [
      path("users/me/", current_user, name="current-user"),
 
     #STASH SURPLUS
-     path("vault/stash/",StashSurplusView.as_view(),name="stash-surplus")
+     path("api/vault/stash/",StashSurplusView.as_view(),name="stash-surplus")
 ]
 
 

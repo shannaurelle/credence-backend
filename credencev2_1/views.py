@@ -167,65 +167,92 @@ class StashSurplusView(APIView):
 
     @transaction.atomic
     def post(self, request):
+
         try:
-            user_account = request.user.useraccount
+            # 1. Retrieve the UserAccount linked to the authenticated user
+            user_account = UserAccount.objects.get(
+                user_id=request.user.id
+            )
 
+            # 2. Retrieve request data
             bank_id = request.data.get("bank_id")
-            amount = Decimal(str(request.data.get("amount")))
+            raw_amount = request.data.get("amount")
 
-            if amount <= 0:
+            if not bank_id or raw_amount is None:
                 return Response(
-                    {"error": "Stash amount must be greater than zero."},
+                    {"error": "Bank ID and amount are required."},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
-            # Lock the selected bank account
+            amount = Decimal(str(raw_amount))
+
+            if not amount.is_finite() or amount <= 0:
+                return Response(
+                    {"error": "Invalid stash amount."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            # 3. Retrieve the user's connected bank account
             bank = ConnectedBankAccount.objects.select_for_update().get(
                 id=bank_id,
                 user_account=user_account
             )
 
-            # Lock the user's vault
+            # 4. Retrieve the user's vault
             vault = Vault.objects.select_for_update().get(
                 user_account=user_account
             )
 
-            # Check sufficient bank balance
-            if bank.bank_balance < amount:
+            # 5. Check available bank balance
+            if Decimal(str(bank.bank_balance)) < amount:
                 return Response(
                     {"error": "Insufficient bank balance."},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
-            # Deduct from selected bank
-            bank.bank_balance -= amount
+            # 6. Transfer the amount
+            bank.bank_balance = float(
+                Decimal(str(bank.bank_balance)) - amount
+            )
             bank.save(update_fields=["bank_balance"])
 
-            # Deposit into vault
-            vault.vault_balance += amount
+            vault.vault_balance = float(
+                Decimal(str(vault.vault_balance)) + amount
+            )
             vault.save(update_fields=["vault_balance"])
 
             return Response({
                 "message": "Surplus successfully transferred to your vault.",
-                "transferred_amount": str(amount),
-                "bank_balance": str(bank.bank_balance),
-                "vault_balance": str(vault.vault_balance)
+                "user_account_id": user_account.pk,
+                "bank_id": bank.id,
+                "amount_stashed": float(amount),
+                "remaining_bank_balance": bank.bank_balance,
+                "vault_balance": vault.vault_balance
             }, status=status.HTTP_200_OK)
 
-        except (InvalidOperation, TypeError, ValueError):
+        except UserAccount.DoesNotExist:
             return Response(
-                {"error": "Invalid transfer amount."},
-                status=status.HTTP_400_BAD_REQUEST
+                {
+                    "error": "No UserAccount is linked to the authenticated Django user.",
+                    "authenticated_user_id": request.user.id
+                },
+                status=status.HTTP_404_NOT_FOUND
             )
 
         except ConnectedBankAccount.DoesNotExist:
             return Response(
-                {"error": "Selected bank account was not found."},
+                {"error": "Connected bank account not found for this user."},
                 status=status.HTTP_404_NOT_FOUND
             )
 
         except Vault.DoesNotExist:
             return Response(
-                {"error": "Vault was not found."},
+                {"error": "Vault not found for this user."},
                 status=status.HTTP_404_NOT_FOUND
+            )
+
+        except (InvalidOperation, TypeError, ValueError):
+            return Response(
+                {"error": "Invalid transfer amount."},
+                status=status.HTTP_400_BAD_REQUEST
             )
