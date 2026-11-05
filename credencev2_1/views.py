@@ -6,6 +6,12 @@ from .serializers import *
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from decimal import Decimal, InvalidOperation
+from django.db import transaction
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 # List and Create new Users
 class UserListCreateAPIView(generics.ListCreateAPIView):
@@ -154,3 +160,72 @@ def current_user(request):
         "time_joined": user.date_joined.time(),                # HH:MM:SS object
         "time_joined_formatted": user.date_joined.strftime("%I:%M %p"), # "10:03 AM"
     })
+
+
+class StashSurplusView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @transaction.atomic
+    def post(self, request):
+        try:
+            user_account = request.user.useraccount
+
+            bank_id = request.data.get("bank_id")
+            amount = Decimal(str(request.data.get("amount")))
+
+            if amount <= 0:
+                return Response(
+                    {"error": "Stash amount must be greater than zero."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            # Lock the selected bank account
+            bank = ConnectedBankAccount.objects.select_for_update().get(
+                id=bank_id,
+                user_account=user_account
+            )
+
+            # Lock the user's vault
+            vault = Vault.objects.select_for_update().get(
+                user_account=user_account
+            )
+
+            # Check sufficient bank balance
+            if bank.bank_balance < amount:
+                return Response(
+                    {"error": "Insufficient bank balance."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            # Deduct from selected bank
+            bank.bank_balance -= amount
+            bank.save(update_fields=["bank_balance"])
+
+            # Deposit into vault
+            vault.vault_balance += amount
+            vault.save(update_fields=["vault_balance"])
+
+            return Response({
+                "message": "Surplus successfully transferred to your vault.",
+                "transferred_amount": str(amount),
+                "bank_balance": str(bank.bank_balance),
+                "vault_balance": str(vault.vault_balance)
+            }, status=status.HTTP_200_OK)
+
+        except (InvalidOperation, TypeError, ValueError):
+            return Response(
+                {"error": "Invalid transfer amount."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        except ConnectedBankAccount.DoesNotExist:
+            return Response(
+                {"error": "Selected bank account was not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        except Vault.DoesNotExist:
+            return Response(
+                {"error": "Vault was not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )

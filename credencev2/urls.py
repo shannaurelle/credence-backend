@@ -79,7 +79,10 @@ urlpatterns = [
     path("api/auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 
     #Get the id of the current user
-     path("users/me/", current_user, name="current-user")
+     path("users/me/", current_user, name="current-user"),
+
+    #STASH SURPLUS
+     path("vault/stash/",StashSurplusView.as_view(),name="stash-surplus")
 ]
 
 
