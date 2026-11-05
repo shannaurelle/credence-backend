@@ -28,6 +28,38 @@ class UserAccountSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['user']
 
+class JobInfoSerializer(serializers.ModelSerializer):
+    platform_name = serializers.CharField(
+        source='platform.platform_name',
+        read_only=True
+    )
+
+    platform_type = serializers.CharField(
+        source='platform.platform_type',
+        read_only=True
+    )
+
+    bank_name = serializers.CharField(
+        source='connected_bank_account.bank.bank_name',
+        read_only=True,
+        allow_null=True
+    )
+
+    class Meta:
+        model = JobInfo
+        fields = [
+            'id',
+            'user_account',
+            'connected_bank_account',
+            'bank_name',
+            'platform',
+            'platform_name',
+            'platform_type',
+            'job_name',
+            'job_type',
+            'job_description',
+        ]
+
 class ProfileDetailsSerializer(serializers.ModelSerializer):
 
     first_name = serializers.CharField(source='user.first_name',read_only=True)
@@ -53,6 +85,20 @@ class ProfileDetailsSerializer(serializers.ModelSerializer):
             'municipality_city',
             'barangay',
             'street_address',
+        ]
+
+class TransactionHistorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TransactionHistory
+        fields = [
+            'id',
+            'connected_bank_account',
+            'user_account',
+            'transaction_name',
+            'transaction_date',
+            'transaction_time',
+            'transaction_amount',
         ]
 
 class ProfileDetailUpdateSerializer(serializers.ModelSerializer):

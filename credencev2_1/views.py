@@ -32,6 +32,60 @@ class UserAccountListDetailEdit(generics.UpdateAPIView):
     serializer_class = UserAccountSerializer
     lookup_field='pk'
 
+# List all jobs and create a new job
+class JobInfoListCreateView(generics.ListCreateAPIView):
+    queryset = JobInfo.objects.select_related(
+        'user_account',
+        'connected_bank_account',
+        'connected_bank_account__bank',
+        'platform'
+    ).all()
+
+    serializer_class = JobInfoSerializer
+
+class UserJobInfoListView(generics.ListAPIView):
+    serializer_class = JobInfoSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+
+        return JobInfo.objects.filter(
+            user_account_id=user_id
+        ).select_related(
+            'user_account',
+            'connected_bank_account',
+            'connected_bank_account__bank',
+            'platform'
+        )
+
+# Retrieve, update, or delete a specific job
+class JobInfoDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = JobInfo.objects.select_related(
+        'user_account',
+        'connected_bank_account',
+        'connected_bank_account__bank',
+        'platform'
+    ).all()
+
+    serializer_class = JobInfoSerializer
+
+class TransactionHistoryListView(generics.ListAPIView):
+
+    serializer_class = TransactionHistorySerializer
+
+    def get_queryset(self):
+        user_account_id = self.kwargs.get('user_account_id')
+
+        return TransactionHistory.objects.filter(
+            user_account_id=user_account_id
+        ).select_related(
+            'user_account',
+            'connected_bank_account'
+        ).order_by(
+            '-transaction_date',
+            '-transaction_time'
+        )
+
 class ProfileView(generics.RetrieveAPIView):
     queryset = UserAccount.objects.select_related(
         'user',

@@ -5,6 +5,7 @@ from django.db import models
 from django.conf import settings
 from datetime import date
 from datetime import datetime
+from django.utils import timezone
 
 class User(models.Model):
     name = models.CharField(max_length=100)
@@ -100,7 +101,7 @@ class JobInfo (models.Model):
     job_description = models.CharField(max_length=300)
 
     def __str__(self):
-        return f"{self.user_account} Job No. {self.id}"
+        return f"{self.user_account} - {self.job_name}"
 
 class Lender(models.Model):
      lender_name = models.CharField(max_length=100,unique=True)
@@ -146,7 +147,9 @@ class TransactionHistory(models.Model):
               )
       transaction_name = models.CharField(max_length=100)
       transaction_date = models.DateField(default=date.today)
-      transaction_time = models.DateField(auto_now_add=True)
+      transaction_time = models.TimeField(
+    default=timezone.now
+)
       transaction_amount = models.FloatField(default=0.0)
 
       def __str__(self):
@@ -228,11 +231,14 @@ class DistanceTravelled (models.Model):
                                    on_delete=models.CASCADE,
                                    null=True
                                )
+     t_date = models.DateField(null=True)
+     t_time = models.TimeField(null=True)
      start_latitude = models.FloatField(default=0.0)
      start_longitude = models.FloatField(default=0.0)
      end_latitude = models.FloatField(default=0.0)
      end_longitude = models.FloatField(default=0.0)
-     vehicle_type = models.CharField(null=True)
+     km = models.FloatField(default=0.0)
+     vehicle_type = models.CharField( max_length=50,null=True,blank=True)
 
 
 

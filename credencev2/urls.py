@@ -37,9 +37,17 @@ urlpatterns = [
     # Edit Profile Details
     path('api/user_profile/update/<int:pk>/',ProfileUpdate.as_view(),name='user-profile-update'),
 
+    path('jobinfo/list/',JobInfoListCreateView.as_view(),name='jobinfo-list-create'),
+
+    path('jobinfo/update/<int:pk>/',JobInfoDetailView.as_view(),name='jobinfo-detail'),
+
+    path('jobinfo/user/<int:user_id>/',UserJobInfoListView.as_view(),name='user-jobinfo-list'),
+
     # Minimum Wage of a Region
     path('api/minimumwageperregion/list/<int:pk>/',PHMinimumWagesPerRegionView.as_view(),name='minimum-wage-info'),
 
+    #transaction list:
+    path('transactions/list/<int:user_account_id>/',TransactionHistoryListView.as_view(),name='transaction-history-list'),
     # Minimum Wage List
     path('api/minimumwageperregion/list/',PHMinimumWagesPerRegionListView.as_view(),name='minimum-wage-list'),
 
