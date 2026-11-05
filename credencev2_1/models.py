@@ -232,6 +232,8 @@ class DistanceTravelled (models.Model):
      start_longitude = models.FloatField(default=0.0)
      end_latitude = models.FloatField(default=0.0)
      end_longitude = models.FloatField(default=0.0)
+     vehicle_type = models.CharField(null=True)
+
 
 
      
