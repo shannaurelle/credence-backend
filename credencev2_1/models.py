@@ -163,7 +163,7 @@ class MonthlyRecurringPayment(models.Model):
       type = models.CharField(max_length=100, null=True)
       monthly_payment = models.FloatField(default=0.0)
       def __str__(self):
-            return f"Monthly Payment No. {self.id} of {self.user_account}"
+            return f"Monthly Payment No. {self.id} of {self.user_account} for {self.type}"
 
 class Income(models.Model):
     user_account = models.ForeignKey(
