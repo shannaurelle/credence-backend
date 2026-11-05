@@ -43,6 +43,12 @@ urlpatterns = [
     # Minimum Wage List
     path('api/minimumwageperregion/list/',PHMinimumWagesPerRegionListView.as_view(),name='minimum-wage-list'),
 
+    # Distance Travelled Update
+    path('api/distance_travelled/update/<int:pk>/',DistanceTravelledUpdateView.as_view(),name='user-distance-travelled-update'),
+
+    # Distance Travelled List
+    path('api/distance_travelled/list/<int:user_account>/',DistanceTravelledListView.as_view(),name='user-distance-travelled-update'),
+
     # Connected Bank Accounts
     path('api/connected_bank/update/<int:pk>/',ConnectedBankUpdateView.as_view(),name='user-bank-update'),
 

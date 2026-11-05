@@ -112,6 +112,23 @@ class ExpenseUpdateView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field='user_account'
 
 
+#Distance Travelled
+class DistanceTravelledUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset =DistanceTravelled.objects.select_related('user_account').all()
+    serializer_class = DistanceTravelledSerializer
+    lookup_field='pk'
+
+class DistanceTravelledListView(generics.ListAPIView):
+    serializer_class = DistanceTravelledSerializer
+    lookup_field='user_account'
+    def get_queryset(self):
+        user_account_id = self.kwargs['user_account']
+
+        return DistanceTravelled.objects.select_related(
+            'user_account'
+        ).filter(user_account_id=user_account_id)
+
+
     # List and Create new Users
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()

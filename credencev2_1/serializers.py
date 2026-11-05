@@ -140,3 +140,8 @@ class ExpenseSerializer(serializers.ModelSerializer):
     class Meta:
         model=Expense
         fields='__all__'
+
+class DistanceTravelledSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=DistanceTravelled
+        fields='__all__'

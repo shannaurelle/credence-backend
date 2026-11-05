@@ -222,5 +222,17 @@ class Vault (models.Model):
     def __str__(self):
             return f"Vault of {self.user_account}"
 
+class DistanceTravelled (models.Model):
+     user_account = models.ForeignKey(
+                                   UserAccount,
+                                   on_delete=models.CASCADE,
+                                   null=True
+                               )
+     start_latitude = models.FloatField(default=0.0)
+     start_longitude = models.FloatField(default=0.0)
+     end_latitude = models.FloatField(default=0.0)
+     end_longitude = models.FloatField(default=0.0)
 
+
+     
     
