@@ -44,25 +44,21 @@ class ConnectedBankUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ConnectedBankAccountsSerializer
     lookup_field='pk'
 
-class ConnectedBankIDsListView(generics.ListAPIView):
-    queryset =ConnectedBankAccountsIDs.objects.select_related('user_account','connected_bank').all()
-    serializer_class = ConnectedBankAccountIDsSerializer
+class ConnectedBanksListView(generics.ListAPIView):
+    serializer_class = ConnectedBankAccountsSerializer
     lookup_field='user_account'
+    def get_queryset(self):
+        user_account_id = self.kwargs['user_account']
 
-class ConnectedBankIDsUpdateView(generics.RetrieveUpdateDestroyAPIView):
-    queryset =ConnectedBankAccountsIDs.objects.select_related('user_account','connected_bank').all()
-    serializer_class = ConnectedBankAccountIDsSerializer
-    lookup_field='user_account'
+        return ConnectedBankAccount.objects.select_related(
+            'user_account', 'bank'
+        ).filter(user_account_id=user_account_id)
+
 
 class VaultUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Vault.objects.select_related('user_account').all()
     serializer_class = VaultSerializer
     lookup_field='user_account'
-
-class UserHealthScoreUpdateView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = UserHealthScore.objects.select_related('user_account').all()
-    serializer_class = UserHealthScoreSerializer
-    lookup_field='pk'
 
 class LoanInfoListView(generics.ListAPIView):
     queryset = LoanInfo.objects.select_related('user_account', 'lender').all()
@@ -74,25 +70,6 @@ class LoanInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LoanInfoSerializer
     lookup_field='pk'
 
-class InvestmentInfoListView(generics.ListAPIView):
-    queryset = InvestmentInfo.objects.select_related('user_account', 'investment_provider').all()
-    serializer_class = InvestmentInfoSerializer
-    lookup_field='user_account'
-
-class InvestmentInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = InvestmentInfo.objects.select_related('user_account', 'investment_provider').all()
-    serializer_class = InvestmentInfoSerializer
-    lookup_field='pk'
-
-class InsuranceInfoListView(generics.ListAPIView):
-    queryset = InsuranceInfo.objects.select_related('user_account', 'insurance_provider').all()
-    serializer_class = InsuranceInfoSerializer
-    lookup_field='user_account'
-
-class InsuranceInfoUpdateView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = InsuranceInfo.objects.select_related('user_account', 'insurance_provider').all()
-    serializer_class = InsuranceInfoSerializer
-    lookup_field='pk'
 
 #monthly recurring Payment
 class MonthlyRecurringPaymentListView(generics.ListAPIView):

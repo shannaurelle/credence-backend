@@ -84,21 +84,6 @@ class ConnectedBankAccount (models.Model):
     def __str__(self):
             return f"{self.user_account}'s Bank Account No. {self.id}"
 
-class ConnectedBankAccountsIDs (models.Model):
-      user_account = models.ForeignKey(
-            UserAccount,
-            related_name='user_id_2_connected_bank',
-            on_delete=models.CASCADE,
-        )
-        
-      connected_bank = models.OneToOneField(
-            ConnectedBankAccount,
-            related_name='user_2_connected_bank2',
-            on_delete=models.CASCADE,
-            primary_key=True
-      )
-      def __str__(self):
-        return f"{self.user_account}, {self.connected_bank}"
 
 class Platform (models.Model):
     platform_name = models.CharField(max_length=100,unique=True)
@@ -149,55 +134,6 @@ class InvestmentProvider (models.Model):
      def __str__(self):
         return self.investment_provider_name
 
-class InvestmentInfo(models.Model):
-     user_account = models.ForeignKey(
-                 UserAccount,
-                 on_delete=models.CASCADE,
-             )
-     
-     investment_provider = models.ForeignKey(
-        InvestmentProvider,
-         on_delete=models.CASCADE,
-             )
-     date_availed = models.DateField()
-     investment_type = models.CharField(max_length=100, null=True)
-     minimum_capital=models.FloatField(default=0.0)
-     return1 = models.FloatField (default=0.0)
-     mtd = models.FloatField (default=0.0)
-     ytd = models.FloatField(default=0.0)
-     nav = models.FloatField(default=0.0)
-     navps = models.FloatField(default=0.0)
-     rsi = models.FloatField(default=0.0)
-
-     def __str__(self):
-                     return f"{self.user_account}'s Investment No. {self.id}"
-
-class InsuranceProvider(models.Model):
-     insurance_provider_name = models.CharField(max_length=100, unique=True)
-     def __str__(self):
-             return self.insurance_provider_name
-
-class InsuranceInfo(models.Model):
-     user_account = models.ForeignKey(
-                      UserAccount,
-                      on_delete=models.CASCADE,
-                  )
-          
-     insurance_provider = models.ForeignKey(
-             InsuranceProvider,
-              on_delete=models.CASCADE,
-                  )   
-     insurance_type = models.CharField(max_length=100)
-     date_availed =  models.DateField()
-     premium = models.FloatField(default=0.0)
-     deductible = models.FloatField(default=0.0)
-     co_payment = models.FloatField(default=0.0)
-     con_insurance= models.FloatField(default=0.0)
-     policy_limit = models.FloatField(default=0.0)
-
-     def __str__(self):
-                          return f"{self.user_account}'s Insurance No. {self.id}"
-
 class TransactionHistory(models.Model):
       connected_bank_account = models.ForeignKey(
             ConnectedBankAccount,
@@ -245,11 +181,12 @@ class Income(models.Model):
                               on_delete=models.CASCADE,
                               null=True
                           )
-    
     income_amount = models.FloatField(default=0.0)
     i_date = models.DateField(null=True)
+    i_time = models.TimeField(null=True)
+    i_isVerified = models.BooleanField(default=False)
     def __str__(self):
-        return f"Income of {self.user_account}, {self.i_date}" 
+        return f"Income of {self.user_account}, {self.i_date} - {self.i_time}" 
 
 class Expense(models.Model):
     user_account = models.ForeignKey(
@@ -265,8 +202,10 @@ class Expense(models.Model):
     
     expense_amount = models.FloatField(default=0.0)
     e_date = models.DateField( null=True)
+    e_time = models.TimeField( null=True)
+    e_isVerified = models.BooleanField(default=False)
     def __str__(self):
-        return f"Expense of {self.user_account}, {self.e_date}" 
+        return f"Expense of {self.user_account}, {self.e_date} - {self.e_time}" 
 
 
 class Vault (models.Model):
@@ -283,15 +222,5 @@ class Vault (models.Model):
     def __str__(self):
             return f"Vault of {self.user_account}"
 
-class UserHealthScore (models.Model):
-    user_account = models.OneToOneField(
-                UserAccount,
-                on_delete=models.CASCADE,
-                related_name="user_health_score",
-                primary_key=True
-            )
-    uh_score = models.IntegerField(default=100)
 
-    def __str__(self):
-        return f"User Health Score No. {self.user_account}"
     

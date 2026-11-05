@@ -87,11 +87,6 @@ class ConnectedBankAccountsSerializer(serializers.ModelSerializer):
             'bank_balance'
         ]
 
-class ConnectedBankAccountIDsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ConnectedBankAccountsIDs
-        fields = '__all__'
-
 class VaultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vault
@@ -99,14 +94,6 @@ class VaultSerializer(serializers.ModelSerializer):
             'user_account',
             'vault_type',
             'vault_balance'
-        ]
-
-class UserHealthScoreSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserHealthScore
-        fields = [
-            'user_account',
-            'uh_score'
         ]
 
 class LoanInfoSerializer(serializers.ModelSerializer):
@@ -128,42 +115,6 @@ class LoanInfoSerializer(serializers.ModelSerializer):
             "user_account"
 
         ]
-class InvestmentInfoSerializer(serializers.ModelSerializer):
-    investment_provider_name = serializers.CharField(source="investment_provider.investment_provider_name", read_only=True)
-    class Meta:
-        model=InvestmentInfo
-        fields = [
-            'id',
-            'investment_provider',
-            'investment_provider_name',
-            'investment_type',
-            'user_account',
-            'date_availed',
-            'minimum_capital',
-            'return1',
-            'mtd',
-            'ytd',
-            'nav',
-            'navps',
-            'rsi'
-        ]
-
-class InsuranceInfoSerializer(serializers.ModelSerializer):
-    insurance_provider_name = serializers.CharField(source="insurance_provider.insurance_provider_name", read_only=True)
-    class Meta:
-            model=InsuranceInfo
-            fields = [
-                'id',
-                'insurance_provider',
-                'insurance_provider_name',
-                'insurance_type',
-                'date_availed',
-                'premium',
-                'deductible',
-                'co_payment',
-                'con_insurance',
-                'policy_limit'
-            ]
 
 class MonthlyRecurringPaymentSerializer(serializers.ModelSerializer):
     class Meta:

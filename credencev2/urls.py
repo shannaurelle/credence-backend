@@ -46,17 +46,11 @@ urlpatterns = [
     # Connected Bank Accounts
     path('api/connected_bank/update/<int:pk>/',ConnectedBankUpdateView.as_view(),name='user-bank-update'),
 
-    
-    # Connected Bank Accounts
-    path('api/connected_bank2/update/<int:user_account>/',ConnectedBankIDsUpdateView.as_view(),name='user-bank-update2'),
     # Connected Bank Accounts List
-    path('api/connected_bank2/list/<int:user_account>/',ConnectedBankIDsListView.as_view(),name='user-bank-list2'),
+    path('api/connected_bank2/list/<int:user_account>/',ConnectedBanksListView.as_view(),name='user-bank-list2'),
 
     # Vault
     path('api/vault/update/<int:user_account>/',VaultUpdateView.as_view(),name='user-vault-update'),
-
-    # User Health Score
-    path('api/uhs/update/<int:pk>/',UserHealthScoreUpdateView.as_view(),name='user-uhs-update'),
 
     # Loan Information List
     path('api/loaninfo/list/<int:user_account>/',LoanInfoListView.as_view(),name='user-loaninfo-list'),
@@ -64,21 +58,6 @@ urlpatterns = [
     # Loan Information Update
     path('api/loaninfo/update/<int:pk>/',LoanInfoUpdateView.as_view(),name='user-loaninfo-update'),
 
-    # Investment Information List
-    path('api/investmentinfo/list/<int:user_account>/',InvestmentInfoListView.as_view(),name='user-investmentinfo-list'),
-
-    # Investment Information Update
-    path('api/investmentinfo/update/<int:pk>/',InvestmentInfoUpdateView.as_view(),name='user-investmentinfo-update'),
-
-    # Insurance Information List
-    path('api/insuranceinfo/list/<int:user_account>/',InsuranceInfoListView.as_view(),name='user-insuranceinfo-list'),
-
-    # Insurance Information Update
-    path('api/insuranceinfo/update/<int:pk>/',InsuranceInfoUpdateView.as_view(),name='user-insuranceinfo-update'),
-
-    # Monthly recurring Payment Information List
-    path('api/monthlyrecurringpaymentinfo/list/<int:user_account>/',MonthlyRecurringPaymentListView.as_view(),name='user-mrp-list'),
-    
     # Monthly recurring payment Information Update
     path('api/monthlyrecurringpaymentinfo/update/<int:pk>/',MonthlyRecurringPaymentUpdateView.as_view(),name='user-mrp-update'),
 
